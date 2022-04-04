@@ -1,4 +1,5 @@
 const express = require('express')
+const pkg = require('./package.json')
 const app = express()
 const port = process.env.PORT || 3000
 
@@ -25,8 +26,9 @@ app.get('/', (req, res) => {
             return (
                     <section className="w-screen h-screen flex items-center justify-center">
                         <header className=" shadow-md rounded-md bg-blue-500 p-4">
-
-                           <h1 className="font-bold text-white">Hello Heroku and docker app</h1>
+                            <a href="/app">
+                              <h1 className="font-bold text-white">Hello Heroku and docker app</h1>
+                            </a>
                         </header>
                     </section>
             )
@@ -40,6 +42,13 @@ app.get('/', (req, res) => {
   `);
 })
 
+app.get('/app', (req, res) => {
+  res.send({
+    name: pkg.name,
+    version: pkg.version,
+    description: pkg.description,
+  })
+})
 app.listen(port, () => {
   console.log('\x1b[32m\x1b[2mApp listening\x1b[0m');
   console.log(`\x1b[32mPort:\x1b[0m ${port}`);
