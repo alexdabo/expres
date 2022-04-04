@@ -6,39 +6,24 @@ const port = process.env.PORT || 3000
 app.get('/', (req, res) => {
   res.send(`
 	<!DOCTYPE html>
-<html>
+  <html>
 
-<head>
-    <meta charset='UTF-8'>
-    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
-    <script src='https://unpkg.com/babel-standalone@6.26.0/babel.js'></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>hello</title>
-</head>
+    <head>
+        <meta charset='UTF-8'>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>${process.env.APP_TITLE || 'Sin titulo'}</title>
+    </head>
 
-<body>
-    <div id='root'></div>
-
-    <script type='text/babel'>
-       
-        function App() {     
-            return (
-                    <section className="w-screen h-screen flex items-center justify-center">
-                        <header className=" shadow-md rounded-md bg-blue-500 p-4">
-                            <a href="/app">
-                              <h1 className="font-bold text-white">Hello Heroku and docker app</h1>
-                            </a>
-                        </header>
-                    </section>
-            )
-        }
-
-
-        ReactDOM.render(<App />, document.getElementById('root'));
-    </script>
-</body>
-</html>
+    <body>
+        <section class="w-screen h-screen flex items-center justify-center">
+          <header class=" shadow-md rounded-md bg-blue-500 p-4">
+              <a href="/app" class="font-bold text-white">
+                Hello Heroku and docker app
+              </a>
+          </header>
+        </section>
+    </body>
+  </html>
   `);
 })
 
@@ -47,6 +32,7 @@ app.get('/app', (req, res) => {
     name: pkg.name,
     version: pkg.version,
     description: pkg.description,
+    environment: process.env.DATABASE_TYPE || 'undefined'
   })
 })
 app.listen(port, () => {
