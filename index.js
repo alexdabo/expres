@@ -32,7 +32,10 @@ app.get('/app', (req, res) => {
     name: pkg.name,
     version: pkg.version,
     description: pkg.description,
-    environment: process.env.DATABASE_TYPE || 'undefined'
+    environment: {
+      title: process.env.APP_TITLE || null,
+      database: process.env.DATABASE_TYPE || null,
+    }
   })
 })
 app.listen(port, () => {
